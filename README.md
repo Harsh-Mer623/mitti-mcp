@@ -161,6 +161,40 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 
 ---
 
+## Connecting to the remote (Render) deployment via HTTP
+
+For a client that supports remote `"type": "http"` MCP servers directly (no stdio bridge
+needed), point it at the deployed URL and pass your Mitti API token as a custom header —
+**not** `Authorization`, since FastMCP's HTTP layer reserves that header for its own auth
+and strips it before it reaches tool code:
+
+```json
+{
+  "mcpServers": {
+    "mitti": {
+      "type": "http",
+      "url": "https://mitti-mcp.onrender.com/mcp",
+      "headers": {
+        "x-mitti-token": "your_token_here"
+      }
+    }
+  }
+}
+```
+
+`client.py` checks the incoming request's `x-mitti-token` header first, falling back to
+the server's own `MITTI_API_TOKEN` env var if the header is absent. This means:
+- **One shared deployment can serve multiple callers/orgs**, each with their own token,
+  with no server-wide token configured on Render at all.
+- Or, keep `MITTI_API_TOKEN` set in Render's dashboard as before, and the header becomes
+  optional — useful while testing, since you don't have to configure it in every client.
+
+To make the header **mandatory** (no shared fallback), remove `MITTI_API_TOKEN` from
+Render's environment variables — then any request without a valid `x-mitti-token` header
+fails clearly instead of silently using a shared token.
+
+---
+
 ## Deployment (Prefect Horizon)
 
 To deploy your server live to the cloud:
