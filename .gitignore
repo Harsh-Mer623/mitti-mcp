@@ -22,3 +22,7 @@ uv.lock.bak
 
 # Code review tooling
 .code-review-graph/
+
+# Kept local only, not published to the public repo
+tests/
+AGENTS.md

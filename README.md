@@ -199,24 +199,22 @@ health route.
 
 ```
 mitti-mcp/
-├── AGENTS.md                    # Agent instructions
 ├── README.md
 ├── pyproject.toml
+├── render.yaml
 ├── .env.example
-├── src/
-│   └── mitti_mcp/
-│       ├── __init__.py
-│       ├── server.py            # FastMCP app entry point
-│       ├── client.py            # httpx Mitti API client
-│       ├── tools/
-│       │   ├── inspections.py   # Inspection tools
-│       │   ├── actions.py       # Action tools
-│       │   ├── templates.py     # Template tools
-│       │   └── users.py         # User tools
-│       └── models/
-│           └── schemas.py       # Pydantic v2 models
-└── tests/
-    └── test_tools.py
+└── src/
+    └── mitti_mcp/
+        ├── __init__.py
+        ├── server.py            # FastMCP app entry point
+        ├── client.py            # httpx Mitti API client
+        ├── tools/
+        │   ├── inspections.py   # Inspection tools
+        │   ├── actions.py       # Action tools
+        │   ├── templates.py     # Template tools
+        │   └── users.py         # User tools
+        └── models/
+            └── schemas.py       # Pydantic v2 models
 ```
 
 ---
